@@ -1,0 +1,20 @@
+doctype html
+html
+  head
+    title= title
+    link(rel="stylesheet", href="/css/categories_add.css")
+  body
+    header
+      h1 Add New Category
+      a.btn-back(href="/categories/view") Back to Categories
+
+    div.form-container
+      form(action="/categories" method="POST")
+        div.form-group
+          label(for="name") Name:
+          input(type="text" name="name" placeholder="Enter category name" required)
+        div.form-group
+          label(for="description") Description:
+          textarea(name="description" placeholder="Enter category description")
+        div.form-actions
+          button.btn-submit(type="submit") Add Category

@@ -1,0 +1,35 @@
+doctype html
+html
+  head
+    title= title
+    link(rel="stylesheet", href="/css/products_add.css")
+  body
+    header
+      h1 Add New Product
+      a.btn-back(href="/products/view") Back to Products
+
+    div.form-container
+      form(action="/products" method="POST")
+        div.form-group
+          label(for="name") Name:
+          input(type="text" name="name" placeholder="Enter product name" required)
+        div.form-group
+          label(for="price") Price:
+          input(type="number" name="price" placeholder="Enter product price" min="0" required)
+        div.form-group
+          label(for="quantity") Quantity:
+          input(type="number" name="quantity" placeholder="Enter product quantity" min="0" required)
+        div.form-group
+          label(for="description") Description:
+          textarea(name="description" placeholder="Enter product description")
+        div.form-group
+          label(for="urlImg") Image URL:
+          input(type="text" name="urlImg" placeholder="Enter product image URL")
+        div.form-group
+          label(for="category") Category:
+          select(name="category" required)
+            option(value="" disabled selected) -- Select a Category --
+            each category in categories
+              option(value=category._id)= category.name
+        div.form-actions
+          button.btn-submit(type="submit") Add Product

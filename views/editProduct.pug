@@ -1,0 +1,34 @@
+doctype html
+html
+  head
+    title= title
+    link(rel="stylesheet", href="/css/products_edit.css")
+  body
+    header
+      h1 Edit Product
+      a.btn-back(href="/products/view") Back to Products
+
+    div.form-container
+      form(action=`/products/edit/${product._id}` method="POST")
+        div.form-group
+          label(for="name") Name:
+          input(type="text" name="name" value=product.name placeholder="Enter product name" required)
+        div.form-group
+          label(for="price") Price:
+          input(type="number" name="price" value=product.price placeholder="Enter product price" min="0" required)
+        div.form-group
+          label(for="quantity") Quantity:
+          input(type="number" name="quantity" value=product.quantity placeholder="Enter product quantity" min="0" required)
+        div.form-group
+          label(for="description") Description:
+          textarea(name="description" placeholder="Enter product description")= product.description
+        div.form-group
+          label(for="urlImg") Image URL:
+          input(type="text" name="urlImg" value=product.urlImg placeholder="Enter product image URL")
+        div.form-group
+          label(for="category") Category:
+          select(name="category" required)
+            each category in categories
+              option(value=category._id selected=(category._id.toString() === product.category._id.toString()))= category.name
+        div.form-actions
+          button.btn-submit(type="submit") Save Changes

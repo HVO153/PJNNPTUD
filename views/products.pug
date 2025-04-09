@@ -1,0 +1,37 @@
+doctype html
+html
+  head
+    title= title
+    link(rel="stylesheet", href="/css/products.css")
+  body
+    header
+      h1 Product List
+      a.btn-add(href="/products/add") Add New Product
+
+    div.table-container
+      table.product-table
+        thead
+          tr
+            th Name
+            th Price
+            th Quantity
+            th Description
+            th Image
+            th Category
+            th Actions
+        tbody
+          each product in products
+            tr
+              td= product.name
+              td $#{product.price.toFixed(2)} 
+              td= product.quantity
+              td= product.description
+              td
+                if product.urlImg
+                  img.product-img(src=product.urlImg, alt=product.name)
+                else
+                  span.no-image No Image
+              td= product.category ? product.category.name : 'N/A'
+              td.action-buttons
+                a.edit(href=`/products/edit/${product._id}`) Edit
+                a.delete(href=`/products/delete/${product._id}`) Delete

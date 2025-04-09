@@ -1,0 +1,25 @@
+doctype html
+html
+  head
+    title= title
+    link(rel="stylesheet", href="/css/categories.css")
+  body
+    header
+      h1 Category List
+      a.btn-add(href="/categories/add") Add New Category
+
+    div.table-container
+      table.category-table
+        thead
+          tr
+            th Name
+            th Description
+            th Actions
+        tbody
+          each category in categories
+            tr
+              td= category.name
+              td= category.description
+              td.action-buttons
+                a.edit(href=`/categories/edit/${category._id}`) Edit
+                a.delete(href=`/categories/delete/${category._id}`) Delete
