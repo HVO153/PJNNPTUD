@@ -30,9 +30,6 @@ app.use(cookieParser("NNPTUD"));
 app.use(express.static(path.join(__dirname, 'public')));
 app.use('/css', express.static(path.join(__dirname, 'views', 'css')));
 
-app.get('/', (req, res) => {
-  res.sendFile(path.join(__dirname, 'public', 'index.html'));
-});
 
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
@@ -41,6 +38,7 @@ app.use('/menus', require('./routes/menus'));
 app.use('/auth', require('./routes/auth'));
 app.use('/products', require('./routes/products'));
 app.use('/categories', require('./routes/categories'));
+
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
   next(createError(404));
@@ -53,5 +51,19 @@ app.use(function(err, req, res, next) {
   res.locals.error = req.app.get('env') === 'development' ? err : {};
   CreateErrorRes(res,err.message,err.status||500);
 });
+
+
+
+// Route: Hiển thị giao diện đăng ký
+app.get('/auth/signup', (req, res) => {
+  res.render('signup'); // Render file views/signup.pug
+});
+
+// Route: Hiển thị giao diện đăng nhập
+app.get('/auth/login', (req, res) => {
+  res.render('login'); // Render file views/login.pug
+});
+
+
 
 module.exports = app;

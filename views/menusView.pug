@@ -1,0 +1,16 @@
+extends layout
+
+block styles
+  link(rel="stylesheet", href="/css/menu.css")
+
+block content
+  h1(style="margin-bottom: 20px;")= title
+
+  nav.navbar
+    each menu in menus
+      .menu-item
+        a.menu-link(href=menu.URL)= menu.text
+        if menu.children.length > 0
+          .submenu
+            each child in menu.children
+              a(href=child.URL)= child.text

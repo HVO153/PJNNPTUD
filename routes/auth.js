@@ -162,5 +162,16 @@ router.get('/avatars/:filename', function (req, res, next) {
     let pathFile = path.join(avatarDir, req.params.filename);
     res.sendFile(pathFile)
 })
+
+
+// Route: Hiển thị giao diện đăng ký
+router.get('/signup', (req, res) => {
+    res.render('signup'); // Render file views/signup.pug
+});
+
+// Route: Hiển thị giao diện đăng nhập
+router.get('/login', (req, res) => {
+    res.render('login'); // Render file views/login.pug
+});
 //67de10517282904fbca502ae
 module.exports = router;

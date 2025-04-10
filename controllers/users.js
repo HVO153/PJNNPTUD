@@ -79,17 +79,28 @@ module.exports = {
         }
     },
     CheckLogin: async function (username, password) {
-        let user = await this.GetUserByUsername(username);
-        if (!user) {
-            throw new Error("Username hoc password khong dung")
-        } else {
-            if (bcrypt.compareSync(password, user.password)) {
-                return  user._id;
-            } else {
-                throw new Error("Username hoc password khong dung")
+    let user = await this.GetUserByUsername(username);
+    if (!user) {
+        throw new Error("Username hoặc password không đúng");
+    } else {
+        if (bcrypt.compareSync(password, user.password)) {
+            // Tăng login count
+            user.loginCount = (parseInt(user.loginCount) || 0) + 1;
+
+            // Cập nhật trạng thái nếu chưa được kích hoạt
+            if (user.status === false) {
+                user.status = true;
             }
+
+            await user.save();
+            return user._id;
+        } else {
+            throw new Error("Username hoặc password không đúng");
         }
-    },
+    }
+},
+
+    
     ChangePassword: async function(user,oldpassword,newpassword){
         if(bcrypt.compareSync(oldpassword,user.password)){
             user.password = newpassword;

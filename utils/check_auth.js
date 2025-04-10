@@ -32,19 +32,18 @@ module.exports = {
         }
 
     },
-    check_authorization: function (roles) {
-        return async function (req, res, next) {
-            try {
-                console.log(object);
-                let roleOfUser = req.user.role.name;
-                if (roles.includes(roleOfUser)) {
-                    next();
-                } else {
-                    throw new Error("ban khong co quyen")
-                }
-            } catch (error) {
-                next(error)
+    check_authorization: function (roles = []) {
+        return function (req, res, next) {
+          try {
+            let roleName = req.user?.role?.name || req.user?.role;
+            if (!roleName || !roles.includes(roleName)) {
+              return next(new Error(`Bạn không có quyền. Quyền hiện tại: ${roleName}`));
             }
-        }
-    }
+            next();
+          } catch (error) {
+            next(new Error("Xác thực quyền thất bại"));
+          }
+        };
+      }
+      
 }

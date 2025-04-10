@@ -19,4 +19,3 @@ let menuSchema = mongoose.Schema({
     timestamps:true
 })
 module.exports = mongoose.model('menu',menuSchema)
-// products

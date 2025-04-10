@@ -37,4 +37,6 @@ router.get("/slug/:category/:product", async function (req, res, next) {
   }
 })
 
+
+
 module.exports = router;
